@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+  height: 100%;
+}
+ 
+
+@layer base {
+  :root {
+    --background: 212 42% 17%;
+    --foreground: 45 90% 50%;
+    --card: 212 42% 17%;
+    --card-foreground: 45 90% 50%;
+    --popover: 212 42% 17%;
+    --popover-foreground: 45 90% 50%;
+    --primary: 212 42% 17%; 
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 45 90% 50%; 
+    --secondary-foreground: 0 0% 9%;
+    --tertiary: 239 49% 36%;
+    --tertiary-foreground: 239 49% 36%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 45 90% 50%; 
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 212 42% 17%; 
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .legacy {
+    --background: 212 42% 17%;
+    --foreground: 45 90% 50%;
+    --card: 212 42% 17%;
+    --card-foreground: 45 90% 50%;
+    --popover: 212 42% 17%;
+    --popover-foreground: 45 90% 50%;
+    --primary: 212 42% 17%; 
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 45 90% 50%; 
+    --secondary-foreground: 0 0% 9%;
+    --tertiary: 239 49% 36%;
+    --tertiary-foreground: 239 49% 36%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 45 90% 50%; 
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 212 42% 17%; 
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+/* body {
+  background-image: url('/images/legacy/navbarbg.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+} */

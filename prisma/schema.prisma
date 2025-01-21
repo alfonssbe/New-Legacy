@@ -1,0 +1,340 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Roles {
+  id              String    @id @default(uuid())
+  userId          String    // Foreign Key to Brand
+  user            Users     @relation("UsersToRoles", fields: [userId], references: [id])
+  brandId         String
+  brandName       String    @db.Text    @default("")
+  
+  @@index([userId])
+}
+
+model Users {
+  id              String    @id @default(uuid())
+  name            String    @db.Text
+  email           String    @db.Text
+  password        String    @db.Text
+  role            Roles[]   @relation("UsersToRoles")
+  expiredAt       String    @default("")
+  refresh_token   String    @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Brand {
+  id              String        @id @default(uuid())
+  name            String        @db.Text
+  userId          String
+  products        Product[]     @relation("BrandToProduct")
+  sizes           Size[]        @relation("BrandToSize")
+  allcategories   AllCategory[] @relation("BrandToAllCategory")
+  allnews         News[]        @relation("BrandToNews")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Product {
+  id          String    @id @default(uuid())
+  brandId     String    // Foreign Key to Brand
+  brand       Brand     @relation("BrandToProduct", fields: [brandId], references: [id])
+  name        String    @db.Text
+  slug        String    @db.Text
+  description String    @db.Text
+  cover_img   Cover_Image[]
+  featuredDesc  String  @db.Text  @default("")
+  isFeatured  Boolean   @default(false)
+  isArchived  Boolean   @default(false)
+  isNewProduct  Boolean @default(false)
+  series   String  @db.Text  @default("")
+  sizeId      String    
+  size        Size      @relation(fields: [sizeId], references: [id])
+  images_catalogues      Image_Catalogues[]
+  drawing_img Drawing_Image[]
+  graph_img   Graph_Image[]
+  impedance_img  Impedance_Image[]
+  featured_img   Featured_Image[]
+  allCat      AllProductCategory[]
+  multipleDatasheetProduct multipleDatasheetProduct[]
+
+  specId      String    @default("")
+  specification    Specification  @relation(fields: [specId], references: [id], onDelete: Cascade)
+
+  tweeterSpecId  String    @default("")
+  tweeterSpecification    TweeterSpecification  @relation(fields: [tweeterSpecId], references: [id], onDelete: Cascade)
+
+  activeSubwooferSpecId  String    @default("")
+  activeSubwooferSpecification    ActiveSubwooferSpecification  @relation(fields: [activeSubwooferSpecId], references: [id], onDelete: Cascade)
+
+  thieleSmallParameter2OhmId  String    @default("")  
+  thieleSmallParameter2OhmSpecification    ThieleSmallParameters2Ohm  @relation(fields: [thieleSmallParameter2OhmId], references: [id], onDelete: Cascade)
+
+  thieleSmallParameter4OhmId  String    @default("")
+  thieleSmallParameter4OhmSpecification    ThieleSmallParameters4Ohm  @relation(fields: [thieleSmallParameter4OhmId], references: [id], onDelete: Cascade)
+
+  updatedBy   String    @db.Text  @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([brandId])
+  @@index([sizeId])
+  @@index([specId])
+  @@index([tweeterSpecId])
+  @@index([activeSubwooferSpecId])
+  @@index([thieleSmallParameter2OhmId])
+  @@index([thieleSmallParameter4OhmId])
+}
+
+model News {
+  id          String    @id @default(uuid())
+  brandId     String    // Foreign Key to Brand
+  brand       Brand     @relation("BrandToNews", fields: [brandId], references: [id])
+  title       String    @db.Text
+  slug        String    @db.Text
+  description String    @db.Text
+  link_url    String    @db.Text  @default("")
+  link_placeholder  String  @db.Text  @default("")
+  news_img    News_Image[]
+  event_date  DateTime  @default(now())
+  updatedBy   String    @default("")
+  // products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([brandId])
+}
+
+model Size {
+  id          String    @id @default(uuid())
+  brandId     String    // Foreign Key to Brand
+  brand       Brand     @relation("BrandToSize", fields: [brandId], references: [id])
+  name        String    @db.Text
+  value       String    @db.Text
+  updatedBy   String    @default("")
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([brandId])
+}
+
+model AllCategory {
+  id          String    @id @default(uuid())
+  brandId     String    // Foreign Key to Brand
+  brand       Brand     @relation("BrandToAllCategory", fields: [brandId], references: [id])
+  type        String    //Category, Sub Category, Sub Sub Category
+  name        String    @db.Text
+  slug        String    @db.Text
+  description String    @db.Text
+  thumbnail_url String  @db.Text
+  updatedBy   String    @default("")
+  // products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([brandId])
+}
+
+model Image_Catalogues {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  name        String   @db.Text @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model News_Image {
+  id          String   @id @default(uuid())
+  newsId      String   
+  news        News  @relation(fields: [newsId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([newsId])
+}
+
+model Cover_Image {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model Drawing_Image {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model Graph_Image {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model Impedance_Image {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model Featured_Image {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model Specification {
+  id          String    @id @default(uuid())
+  diameter_speaker   String
+  daya_maksimum  String
+  lebar_daerah_frekuensi  String
+  spl  String
+  medan_magnet String
+  berat_magnet String
+  voice_coil_diameter  String
+  impedansi String
+  nominal_power_handling String
+  program_power String
+  voice_coil_material String
+  berat_speaker String
+  custom_note String @db.Text @default("")
+  productId   String   // Foreign Key to Product
+  product     Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model TweeterSpecification {
+  id  String @id @default(uuid())
+  nominal_impedance String
+  dc_resistance String
+  voice_coil_diameter String
+  voice_coil_height String
+  air_gap_height String
+  sensitivity String
+  magnetic_flux_density String
+  magnet_weight String
+  productId   String   // Foreign Key to Product
+  product     Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model ActiveSubwooferSpecification {
+  id  String @id @default(uuid())
+  speaker String
+  subwoofer String
+  daya_amplifier String
+  filter_lpf_variabel String
+  input_level String
+  power_input String
+  box_type String
+  productId   String   // Foreign Key to Product
+  product     Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model ThieleSmallParameters2Ohm {
+  id  String @id @default(uuid())
+  fs String
+  dcr  String
+  qts String
+  qes String
+  qms String
+  mms String
+  cms String
+  bl_product String
+  vas String
+  no String
+  sd String
+  xmax String
+  productId   String   // Foreign Key to Product
+  product     Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model ThieleSmallParameters4Ohm {
+  id  String @id @default(uuid())
+  fs String
+  dcr  String
+  qts String
+  qes String
+  qms String
+  mms String
+  cms String
+  bl_product String
+  vas String
+  no String
+  sd String
+  xmax String
+  productId   String   // Foreign Key to Product
+  product     Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model multipleDatasheetProduct {
+  id          String    @id @default(uuid())
+  productId  String   // Foreign Key to Product
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String    @db.Text  @default("")
+  name        String    @db.Text  @default("")
+  
+  @@index([productId])
+
+}
+
+model AllProductCategory {
+  id          String    @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  categoryId  String
+  type        String    //Category, Sub Category, Sub Sub Category
+  name        String    @db.Text
+  slug        String    @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@index([productId])
+}

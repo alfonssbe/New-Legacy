@@ -1,7 +1,7 @@
 "use client";
 
 import { activeCheckbox, activeSlider, CheckBoxData, Products, SliderData } from "@/app/(legacy)/types";
-import { Slider } from "@/app/(legacy)/components/ui/slider";
+// import { Slider } from "@/app/(legacy)/components/ui/slider_bu";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/app/(legacy)/components/ui/sheet";

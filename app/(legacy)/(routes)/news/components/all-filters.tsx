@@ -7,7 +7,7 @@ import AllNews from "./all-news";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/app/(legacy)/components/ui/sheet";
 import { ScrollArea } from "@/app/(legacy)/components/ui/scroll-area";
-import { SliderNews } from "@/app/(legacy)/components/ui/slidernews";
+// import { SliderNews } from "@/app/(legacy)/components/ui/slidernews_bu";
 
 type SliderSheetValue = {
     slug: string;
@@ -145,7 +145,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                                 <div className="text-center font-bold text-sm text-black">
                                     {value.name}
                                 </div>
-                                <SliderNews
+                                {/* <SliderNews
                                     max={value.max_index}
                                     min={value.min_index}
                                     step={1}
@@ -162,7 +162,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                                     resetclicked={reseted}
                                     onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
                                     className={cn("w-full py-2")}
-                                />
+                                /> */}
                                 <hr/>
                             </div>
                         )}
@@ -193,7 +193,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                             <div className="text-center font-bold text-sm text-black">
                                 {value.name}
                             </div>
-                            <SliderNews
+                            {/* <SliderNews
                                 max={value.max_index}
                                 min={value.min_index}
                                 step={1}
@@ -210,7 +210,7 @@ const AllNewsandFilters: React.FC<MainProps> = ({
                                 resetclicked={reseted}
                                 onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
                                 className={cn("w-full py-2")}
-                            />
+                            /> */}
                             <hr/>
                         </div>
                     )}

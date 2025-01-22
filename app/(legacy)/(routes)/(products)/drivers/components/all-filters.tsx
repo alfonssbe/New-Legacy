@@ -604,7 +604,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                         <div className="text-center font-bold text-sm text-black">
                             {value.name}
                         </div>
-                        <Slider
+                        {/* <Slider
                             max={value.max_index}
                             min={value.min_index}
                             step={1}
@@ -620,7 +620,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             resetclicked={reseted}
                             onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
                             className={cn("w-full py-2")}
-                        />
+                        /> */}
                         <hr/>
                     </div>
                         )
@@ -728,7 +728,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                             <div className="text-center font-bold text-sm text-black">
                                 {value.name}
                             </div>
-                            <Slider
+                            {/* <Slider
                                 max={value.max_index}
                                 min={value.min_index}
                                 step={1}
@@ -744,7 +744,7 @@ const AllDriversandFiltersProducts: React.FC<MainProps> = ({
                                 resetclicked={reseted}
                                 onValueChange={(val) => handleSliderChange(value.slug, val, value.min_index, value.max_index, value.value, value.name, value.unit)}
                                 className={`w-full py-2`}
-                            />
+                            /> */}
                             <hr/>
                         </div>
                     )}
